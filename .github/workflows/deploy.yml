@@ -1,0 +1,51 @@
+name: Deploy
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (must not start with "v")'
+        required: true
+        default: "0.0.0"
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CI_COMMIT_AUTHOR: ${{ github.event.repository.name }} CI
+    steps:
+      - name: Get full version number
+        id: version
+        run: echo "version=v${{ inputs.version }}-$(date +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v5
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+        #   go-version: "1.24.4"
+          go-version-file: 'go.mod'
+      - name: Go generate to download new CleanURLs
+        run: |
+          echo "## Versions" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Workflow '${{ inputs.version}}'" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Deploy '${{steps.version.outputs.version}}'" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Go" >> $GITHUB_STEP_SUMMARY
+          go version >> $GITHUB_STEP_SUMMARY
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Update go servers" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "    GOPROXY=proxy.golang.org go list -m github.com/ddlsmurf/clearurls-go@${{steps.version.outputs.version}}" >> $GITHUB_STEP_SUMMARY
+
+          go generate ./clearurls
+          git config user.name "${{ env.CI_COMMIT_AUTHOR }}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git checkout -b "release/${{steps.version.outputs.version}}"
+          git add ./clearurls/providers_hardcoded_data.go
+          git commit -m "Add hardcoded data for ${{steps.version.outputs.version}}"
+          git tag "${{steps.version.outputs.version}}"
+          git push origin "${{steps.version.outputs.version}}"
