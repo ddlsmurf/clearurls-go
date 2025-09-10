@@ -62,7 +62,7 @@ func commandMiniTests(source string) error {
 	if err != nil {
 		return err
 	}
-	wasCompiled := clearurls.IsProviderCompiled(providers[0])
+	wasCompiled := providers[0].IsCompiled()
 	fmt.Fprintf(os.Stderr, "Got %d providers (compiled: %v)\n", len(providers), wasCompiled)
 	fails := runCleanURLTests(providers)
 	if !wasCompiled {
@@ -70,7 +70,7 @@ func commandMiniTests(source string) error {
 		if err != nil {
 			return err
 		}
-		fmt.Fprintf(os.Stderr, "\nRe-running tests on compiled providers (%v)\n\n", clearurls.IsProviderCompiled(compiledProviders[0]))
+		fmt.Fprintf(os.Stderr, "\nRe-running tests on compiled providers (%v)\n\n", compiledProviders[0].IsCompiled())
 		fails += runCleanURLTests(compiledProviders)
 		if clearurls.GenerateGoSourceCodeForProviders(providers) != clearurls.GenerateGoSourceCodeForProviders(compiledProviders) {
 			fmt.Fprintf(os.Stderr, "\nFail: Source compiled from json and from compiled providers didn't match")

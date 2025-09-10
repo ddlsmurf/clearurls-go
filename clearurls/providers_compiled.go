@@ -86,10 +86,9 @@ func (provider *providerJSON) compile() (*providerCompiled, error) {
 	return provider.prepare().compile()
 }
 
-// Just returns wether `provider` is actually a `*providerCompiled`
-func IsProviderCompiled(provider RunnableProvider) bool {
-	_, ok := provider.(*providerCompiled)
-	return ok
+// implements RunnableProvider
+func (provider *providerJSON) IsCompiled() bool {
+	return false
 }
 
 // Compile all the regex strings to match faster

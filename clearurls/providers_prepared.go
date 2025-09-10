@@ -118,3 +118,8 @@ func (provider *providerWithPreparedRegexStr) applyRawRules(url string) (string,
 func (provider *providerWithPreparedRegexStr) rulesKeyFilter(key string, dontFilterReferrals bool) (bool, error) {
 	panic(fmt.Errorf("providerWithPreparedRegexStr can't rulesKeyFilter"))
 }
+
+// implements RunnableProvider
+func (provider *providerWithPreparedRegexStr) IsCompiled() bool {
+	return false
+}

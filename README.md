@@ -21,7 +21,7 @@ providers, err := clearurls.GetProvidersFromSourceArgument("github")
 if err != nil {
   panic(err)
 }
-fmt.Printf("Loaded %d providers (compiled: %v)\n", len(providers), clearurls.IsProviderCompiled(providers[0]))
+fmt.Printf("Loaded %d providers (compiled: %v)\n", len(providers), (providers[0].IsCompiled())
 
 // Clean a URL
 clearurls.ClearURL(providers, "http://example.com/", false)

@@ -47,3 +47,8 @@ func (provider *providerCompiled) rulesKeyFilter(key string, dontFilterReferrals
 	}
 	return shouldFilter, nil
 }
+
+// implements RunnableProvider
+func (provider *providerCompiled) IsCompiled() bool {
+	return true
+}
