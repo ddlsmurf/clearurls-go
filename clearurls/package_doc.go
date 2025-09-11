@@ -5,7 +5,7 @@
 // reproduce the [source]'s behaviour.
 //
 //  1. The [RunnableProvider] interface represents one entry in the ClearURLs JSON that can
-//     "ran", i.e. tested to match a given url, then transform it. To obtain them:
+//     be "ran", i.e. tested to match a given url, then transform it. To obtain them:
 //
 //     - Download from distributed source either on github or gitlab (see [DownloadSource.DownloadCompiled])
 //

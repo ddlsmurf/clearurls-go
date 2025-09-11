@@ -14,7 +14,7 @@ Overall description here: [clearurls/package_doc.go](clearurls/package_doc.go).
 ```go
 import "github.com/ddlsmurf/clearurls-go/clearurls"
 // Get providers
-providers, err := clearurls.SourceGitLab.DownloadCompiled(true)
+providers, err := clearurls.SourceGitHub.DownloadCompiled(true)
 providers, err := clearurls.SourceGitLab.DownloadWithCacheCompiled("filename", 60, true)
 providers, err := clearurls.HardcodedProviders()
 providers, err := clearurls.GetProvidersFromSourceArgument("github")
