@@ -40,6 +40,10 @@ jobs:
           echo "## Update go servers" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "    GOPROXY=proxy.golang.org go list -m github.com/ddlsmurf/clearurls-go@${{steps.version.outputs.version}}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Run" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "    go run github.com/ddlsmurf/clearurls-go/tools/cleanurls@${{steps.version.outputs.version}} clean hardcoded 'url'" >> $GITHUB_STEP_SUMMARY
 
           go generate ./clearurls
           git config user.name "${{ env.CI_COMMIT_AUTHOR }}"
@@ -51,3 +55,4 @@ jobs:
           git push origin "${{steps.version.outputs.version}}"
           git branch -f latest "${{steps.version.outputs.version}}"
           git push -f origin latest
+          GOPROXY=proxy.golang.org go list -m github.com/ddlsmurf/clearurls-go@${{steps.version.outputs.version}}
