@@ -5,6 +5,14 @@ It allows you to run CleanURLs rules to clean up a URL from tracking URL paramet
 It can get those rules by downloading them (optional local cache), or by hardcoding them using
 `go generate` into the librarie's source code directly.
 
+## CLI use
+
+On mac, replace URL in clipboard with a cleaned URL:
+
+```sh
+go run github.com/ddlsmurf/clearurls-go/tools/cleanurls@latest clean hardcoded "$(pbpaste)" | pbcopy
+```
+
 ## Go package `clearurls/`
 
 Overall description here: [clearurls/package_doc.go](clearurls/package_doc.go).

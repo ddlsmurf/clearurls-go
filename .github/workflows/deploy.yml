@@ -49,3 +49,5 @@ jobs:
           git commit -m "Add hardcoded data for ${{steps.version.outputs.version}}"
           git tag "${{steps.version.outputs.version}}"
           git push origin "${{steps.version.outputs.version}}"
+          git branch -f latest "${{steps.version.outputs.version}}"
+          git push -f origin latest
