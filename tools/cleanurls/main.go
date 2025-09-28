@@ -229,7 +229,7 @@ func runCommandFromArguments(args []string) error {
 		if command.maxArgs >= 0 && len(args) > command.maxArgs {
 			return NewInvalidArgumentsError("Too many arguments (got %d, max %d)", len(args), command.maxArgs)
 		}
-		fmt.Fprintf(os.Stderr, "Running command %q with arguments %q\n", commandName, args)
+		// fmt.Fprintf(os.Stderr, "Running command %q with arguments %q\n", commandName, args)
 		return command.run(args)
 	}
 	return NewInvalidArgumentsError("Invalid command name %q", commandName)
