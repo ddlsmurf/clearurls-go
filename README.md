@@ -3,7 +3,8 @@ This is an approximate implementation of [CleanURLs](https://docs.clearurls.xyz/
 It allows you to run CleanURLs rules to clean up a URL from tracking URL parameters and similar.
 
 It can get those rules by downloading them (optional local cache), or by hardcoding them using
-`go generate` into the librarie's source code directly.
+`go generate` into the library's source code directly.
+This is done in the [published tags](https://github.com/ddlsmurf/clearurls-go/tags) of this package.
 
 ## CLI use
 
